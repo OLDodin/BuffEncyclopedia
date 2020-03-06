@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<WidgetButton>
+	<Priority>250</Priority>
+	<Name>EmptyButton</Name>
+	<Variants>
+		<Item>
+			<Reaction>execute</Reaction>
+			<ReactionRightClick>RIGHT_CLICK</ReactionRightClick>
+		</Item>
+	</Variants>
+	<reactionOnPointing>OnPointing</reactionOnPointing>
+	<BackLayer href="" />
+</WidgetButton>

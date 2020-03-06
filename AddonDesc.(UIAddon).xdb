@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UIAddon>
+	<AutoStart>true</AutoStart>
+	<Forms>
+		<Item>
+			<Id>Main</Id>
+			<Form href="Widgets/Form.xdb#xpointer(/WidgetForm)"/>
+		</Item>
+		<Item>
+			<Id>Template</Id>
+			<Form href="Widgets/Templates/Main.xdb#xpointer(/WidgetForm)"/>
+		</Item>
+		<Item>
+			<Id>Form</Id>
+			<Form href="Widgets/Templates/Form.xdb#xpointer(/WidgetForm)"/>
+		</Item>
+	</Forms>
+	<MainFormId>Main</MainFormId>
+	<Name>BuffEncyclopedia</Name>
+	<localizedNameFileRef href="name.txt"/>
+	<localizedDescFileRef href="desc.txt"/>
+	<ScriptFileRefs>
+		<Item href="/Mods/SampleCommon/SampleAddonBase.lua"/>
+		<Item href="Locales/main.lua"/>
+		<Item href="LibDnD.lua"/>
+		<Item href="Utils.lua"/>
+		<Item href="AVL/avl.lua"/>
+		<Item href="AVL/avl_WStr.lua"/>
+		<Item href="slider.lua"/>
+		<Item href="aoPanelSupport.lua"/>
+		<Item href="Settings.lua"/>
+		<Item href="ScrollListSupport.lua"/>
+		<Item href="SearchForm.lua"/>
+		<Item href="BuffInfoForm.lua"/>
+		<Item href="mainscript.lua"/>
+	</ScriptFileRefs>
+	
+  
+  <visObjects href=""/>
+ 
+<addon_name>BuffEncyclopedia</addon_name>
+</UIAddon>
