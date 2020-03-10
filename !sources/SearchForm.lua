@@ -10,7 +10,7 @@ function InitSearchForm()
 	priority(form, 2500)
 	hide(form)
 
-	setLocaleText(createWidget(form, "header1", "TextView", nil, nil, 100, 25, 20, 20))
+	setLocaleText(createWidget(form, "header1", "TextView", nil, nil, 150, 25, 20, 20))
 	createWidget(form, "searchEdit", "EditLine", nil, nil, 290, 25, 80, 50, nil, nil)
 	setLocaleText(createWidget(form, "searchBtn", "TextView", nil, nil, 80, 25, 20, 50))
 	

@@ -19,7 +19,7 @@ end
 Locales["rus"]={}
 Locales["rus"]["saveBtn"]="Сохранить"
 Locales["rus"]["updBtn"]="Обновить"
-Locales["rus"]["header1"]="Поиск баффа"
+Locales["rus"]["header1"]="Энциклопедия бафов"
 Locales["rus"]["isNegative"]="Негативный:"
 Locales["rus"]["isNeedVisualize"]="Отображаемый:"
 Locales["rus"]["isStackable"]="Стэкуемый:"
@@ -48,4 +48,28 @@ Locales["rus"]["showPositive"]="Позитивные"
 --------------------------------------------------------------------------------
 
 Locales["eng"]={}
-
+Locales["eng"]={}
+Locales["eng"]["saveBtn"]="Save"
+Locales["eng"]["header1"]="Buff Encyclopedia"
+Locales["eng"]["isNegative"]="Negative:"
+Locales["eng"]["isNeedVisualize"]="Displayed:"
+Locales["eng"]["isStackable"]="Stackable:"
+Locales["eng"]["isGradual"]="Gradual:"
+Locales["eng"]["cleanable"]="Cleanable:"
+Locales["eng"]["controls"]="Controls:"
+Locales["eng"]["producer"]="Creator:"
+Locales["eng"]["true"]="Yes"
+Locales["eng"]["false"]="No"
+Locales["eng"]["closeBuffButton"]="Close"
+Locales["eng"]["closeMainButton"]="Close"
+Locales["eng"][PLAYER_PRODUCER]="Player"
+Locales["eng"][UNIT_PRODUCER]="NPC"
+Locales["eng"][SPELL_PRODUCER]="Skill"
+Locales["eng"][ABILITY_PRODUCER]="Skill"
+Locales["eng"][BUFF_PRODUCER]="Buff"
+Locales["eng"][UNKNOWN_PRODUCER]="None"
+Locales["eng"]["searchBtn"]="Search:"
+Locales["eng"]["showCleanable"]="Cleanable"
+Locales["eng"]["showNoCleanable"]="Non cleanable"
+Locales["eng"]["showNegative"]="Negative"
+Locales["eng"]["showPositive"]="Positive"
