@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<UIRelatedTexts>
+  <items>
+    <Item>
+      <name>saveBtn</name>
+      <resource href="saveBtn.txt"/>
+    </Item>
+    <Item>
+      <name>updBtn</name>
+      <resource href="updBtn.txt"/>
+    </Item>
+    <Item>
+      <name>header1</name>
+      <resource href="header1.txt"/>
+    </Item>
+    <Item>
+      <name>isNegative</name>
+      <resource href="isNegative.txt"/>
+    </Item>
+    <Item>
+      <name>isNeedVisualize</name>
+      <resource href="isNeedVisualize.txt"/>
+    </Item>
+    <Item>
+      <name>isStackable</name>
+      <resource href="isStackable.txt"/>
+    </Item>
+    <Item>
+      <name>isGradual</name>
+      <resource href="isGradual.txt"/>
+    </Item>
+    <Item>
+      <name>cleanable</name>
+      <resource href="cleanable.txt"/>
+    </Item>
+    <Item>
+      <name>controls</name>
+      <resource href="controls.txt"/>
+    </Item>
+    <Item>
+      <name>producer</name>
+      <resource href="producer.txt"/>
+    </Item>
+    <Item>
+      <name>true</name>
+      <resource href="true.txt"/>
+    </Item>
+    <Item>
+      <name>false</name>
+      <resource href="false.txt"/>
+    </Item>
+    <Item>
+      <name>closeBuffButton</name>
+      <resource href="closeBuffButton.txt"/>
+    </Item>
+    <Item>
+      <name>closeMainButton</name>
+      <resource href="closeMainButton.txt"/>
+    </Item>
+    <Item>
+      <name>PLAYER_PRODUCER</name>
+      <resource href="PLAYER_PRODUCER.txt"/>
+    </Item>
+    <Item>
+      <name>UNIT_PRODUCER</name>
+      <resource href="UNIT_PRODUCER.txt"/>
+    </Item>
+    <Item>
+      <name>SPELL_PRODUCER</name>
+      <resource href="SPELL_PRODUCER.txt"/>
+    </Item>
+    <Item>
+      <name>ABILITY_PRODUCER</name>
+      <resource href="ABILITY_PRODUCER.txt"/>
+    </Item>
+    <Item>
+      <name>BUFF_PRODUCER</name>
+      <resource href="BUFF_PRODUCER.txt"/>
+    </Item>
+    <Item>
+      <name>UNKNOWN_PRODUCER</name>
+      <resource href="UNKNOWN_PRODUCER.txt"/>
+    </Item>
+    <Item>
+      <name>searchBtn</name>
+      <resource href="searchBtn.txt"/>
+    </Item>
+    <Item>
+      <name>showCleanable</name>
+      <resource href="showCleanable.txt"/>
+    </Item>
+    <Item>
+      <name>showNoCleanable</name>
+      <resource href="showNoCleanable.txt"/>
+    </Item>
+    <Item>
+      <name>showNegative</name>
+      <resource href="showNegative.txt"/>
+    </Item>
+    <Item>
+      <name>showPositive</name>
+      <resource href="showPositive.txt"/>
+    </Item>
+  </items>
+</UIRelatedTexts>
