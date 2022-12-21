@@ -3,7 +3,7 @@ local m_scrollList = nil
 
 
 function InitSearchForm()
-	local template = createWidget(nil, "Template", "Template")
+	local template = getChild(mainForm, "Template")
 	setTemplateWidget(template)
 	local formWidth = 400
 	local form=createWidget(mainForm, "SearchForm", "Panel", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, formWidth, 500, 100, 120)

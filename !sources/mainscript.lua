@@ -217,10 +217,12 @@ function LoadFormSettings()
 	
 	local settings = GetCurrentSettings()
 	for _, simpleInfo in pairs(settings.db) do
-		local info = object.GetBuffInfo(simpleInfo.buffId)
-		if info then
-			info.producerType = simpleInfo.producerType
-			AddBuffToEncylopedia(info, false)
+		if simpleInfo.buffId then
+			local info = object.GetBuffInfo(simpleInfo.buffId)
+			if info then
+				info.producerType = simpleInfo.producerType
+				AddBuffToEncylopedia(info, false)
+			end
 		end
 	end
 	
@@ -294,7 +296,7 @@ function OnSlashCommand(aParams)
 end
 
 function Init()
-	m_template = createWidget(nil, "Template", "Template")
+	m_template = getChild(mainForm, "Template")
 	setTemplateWidget(m_template)
 
 	local button=createWidget(mainForm, "BEButton", "Button", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 25, 25, 300, 120)
