@@ -6,4 +6,6 @@
 	<Cursor2Layer href="Button/HButtonPressed.(WidgetLayerTiledTexture).xdb#xpointer(/WidgetLayerTiledTexture)" />
 	<selectionLayer  href="Button/TextEditHighlighted.(WidgetLayerTiledTexture).xdb#xpointer(/WidgetLayerTiledTexture)" />
 	<ReactionChanged>editLineChanged</reactionDown>
+	<ReactionEsc>EditLineEsc</ReactionEsc>
+	<ReactionEnter>EditLineEsc</ReactionEnter>
 </WidgetEditLine>

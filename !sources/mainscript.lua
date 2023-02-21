@@ -295,6 +295,10 @@ function OnSlashCommand(aParams)
 	end
 end
 
+local function EditLineEsc(aParams)
+	aParams.widget:SetFocus(false)
+end
+
 function Init()
 	m_template = getChild(mainForm, "Template")
 	setTemplateWidget(m_template)
@@ -316,6 +320,8 @@ function Init()
 	--по таймеру проверять валидность списка подписанных
 	common.RegisterEventHandler(OnEventSecondTimer, "EVENT_SECOND_TIMER")
 	common.RegisterEventHandler( OnSlashCommand, "EVENT_UNKNOWN_SLASH_COMMAND" )
+	
+	common.RegisterReactionHandler(EditLineEsc, "EditLineEsc")
 		
 	AddReaction("BEButton", function () ChangeMainWndVisible() end)
 	AddReaction("closeMainButton", function (aWdg) ChangeMainWndVisible() end)

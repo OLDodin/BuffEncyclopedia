@@ -15,7 +15,7 @@ function InitBuffInfoForm()
 	local btnWidth = 100
 	
 	setLocaleText(createWidget(form, "closeBuffButton", "Button", WIDGET_ALIGN_HIGH, WIDGET_ALIGN_HIGH, btnWidth, 25, formWidth/2-btnWidth/2, 20))
-	createWidget(form, "header", "TextView", nil, nil, formWidth, 25, 60, 10)
+	createWidget(form, "header", "EditLineTransparent", nil, nil, formWidth, 25, 60, 20)
 	createWidget(form, "preview1", "ImageBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 45, 45, 10, 6)
 	
 	
@@ -59,7 +59,10 @@ function SetBuffInfoFormSetting(aForm, aList, anIndex)
 	local buffInfo = aList[anIndex]
 	local locale = getLocale()
 	
-	setText(getChild(aForm, "header"), buffInfo.name, "ColorWhite", "left", 18)
+	local valuedText = toValuedText(buffInfo.name, "ColorWhite", "left", 18)
+	setText(getChild(aForm, "header"), common.ExtractWStringFromValuedText(valuedText))
+	getChild(aForm, "header"):SetFocus(true)
+	
 	getChild(aForm, "preview1"):SetBackgroundTexture(buffInfo.texture)
 	
 	local group1 = getChild(aForm, "group1")
