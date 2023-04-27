@@ -139,25 +139,27 @@ b.isEmpty = function(self)
 	return true
 end 
 
+
 local traverse
-traverse = function(node,a,b)
+traverse = function(node,a,b,arr)
 	if node then
-		traverse(node[a],a,b)
-		coroutine.yield(node.value)
-		traverse(node[b],a,b)
+		traverse(node[a],a,b,arr)
+		--coroutine.yield(node.value)
+		table.insert(arr, node.value)
+		traverse(node[b],a,b,arr)
 	end
 end
--- tree traversal is in order by default (left,root,right)
-b.iterate = function(self,mode)
+
+b.getTreeInList = function(self, mode)
 	local a,b
 	if not mode then 
 		a,b = 'left','right'
 	else 
 		a,b = 'right','left' 
 	end
-	return coroutine.wrap(function()
-		traverse(self,a,b)
-	end)
+	local traverseArr = {}
+	traverse(self, a, b, traverseArr)
+	return traverseArr
 end
 
 -- http://stackoverflow.com/questions/1733311/pretty-print-a-tree

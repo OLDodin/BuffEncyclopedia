@@ -49,7 +49,7 @@ function InitBuffInfoForm()
 	description:SetMultiline(true)
 	
 	setText(createWidget(form, "closeBuffButton", "Button", WIDGET_ALIGN_HIGH, WIDGET_ALIGN_LOW, 20, 20, 20, 20), "x")
-	DnD:Init(form, form, false)
+	DnD.Init(form, form, false)
 	
 	return form
 end

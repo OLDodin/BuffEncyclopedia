@@ -24,7 +24,7 @@ function InitSearchForm()
 	setLocaleText(createWidget(form, "closeMainButton", "Button", WIDGET_ALIGN_HIGH, WIDGET_ALIGN_HIGH, btnWidth, 25, formWidth/2-btnWidth/2, 20))
 
 	setText(createWidget(form, "closeMainButton", "Button", WIDGET_ALIGN_HIGH, WIDGET_ALIGN_LOW, 20, 20, 20, 20), "x")
-	DnD:Init(form, form, true)
+	DnD.Init(form, form, true)
 	
 	createWidget(form, "containerBuffs", "ScrollableContainer", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 360, 310, 20, 127)
 	

@@ -35,10 +35,10 @@ end
 
 function ChangeMainWndVisible()
 	if isVisible(m_configForm) then
-		hide(m_configForm)
+		DnD.HideWdg(m_configForm)
 	else
 		UpdatePressed()
-		show(m_configForm)
+		DnD.ShowWdg(m_configForm)
 	end
 	
 	collectgarbage()
@@ -200,7 +200,7 @@ end
 function SavePressed()
 	local settings = GetCurrentSettings()
 	settings.db = {}
-	for record in m_searchAllTree:iterate() do 
+	for _, record in ipairs(m_searchAllTree:getTreeInList()) do 
 		for _, buffInfo in pairs(record.buffs) do
 			local simpleInfo = {}
 			simpleInfo.producerType = buffInfo.producerType
@@ -231,7 +231,7 @@ end
 
 function UpdatePressed()
 	m_currAllList = {}
-	for record in m_searchAllTree:iterate() do 
+	for _, record in ipairs(m_searchAllTree:getTreeInList()) do 
 		for _, buffInfo in pairs(record.buffs) do
 			buffInfo.name = record.name
 			buffInfo.nameStr = toLowerString(record.name)
@@ -247,7 +247,7 @@ function ShowBuffInfoPressed(aWdg)
 	
 	local buffInfoForm = InitBuffInfoForm()
 	SetBuffInfoFormSetting(buffInfoForm, GetSearchScrollList(), index)
-	show(buffInfoForm)
+	DnD.ShowWdg(buffInfoForm)
 end
 
 function EditLineChanged()
@@ -305,7 +305,7 @@ function Init()
 
 	local button=createWidget(mainForm, "BEButton", "Button", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 25, 25, 300, 120)
 	setText(button, "BE")
-	DnD:Init(button, button, true)
+	DnD.Init(button, button, true)
 
 	
 	m_configForm = InitSearchForm()
@@ -325,8 +325,8 @@ function Init()
 		
 	AddReaction("BEButton", function () ChangeMainWndVisible() end)
 	AddReaction("closeMainButton", function (aWdg) ChangeMainWndVisible() end)
-	AddReaction("closeButton", function (aWdg) swap(getParent(aWdg)) end)
-	AddReaction("closeBuffButton", function (aWdg) swap(getParent(aWdg)) end)
+	AddReaction("closeButton", function (aWdg) DnD.SwapWdg(getParent(aWdg)) end)
+	AddReaction("closeBuffButton", function (aWdg) DnD.SwapWdg(getParent(aWdg)) end)
 	AddReaction("scrollBtncontainerBuffs", ShowBuffInfoPressed)
 	AddReaction("showCleanable", ChangedFilter)
 	AddReaction("showNoCleanable", ChangedFilter)

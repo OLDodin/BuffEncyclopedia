@@ -8,7 +8,7 @@ function onAOPanelStart( params )
 		userMods.SendEvent( "AOPANEL_SEND_ADDON",
 			{ name = common.GetAddonName(), sysName = common.GetAddonName(), param = params } )
 
-		hide(getChild(mainForm, "BEButton"))
+		DnD.HideWdg(getChild(mainForm, "BEButton"))
 	end
 end
 
@@ -29,7 +29,7 @@ end
 
 function onAOPanelChange( params )
 	if params.unloading and params.name == "UserAddon/AOPanelMod" then
-		show(getChild(mainForm, "BEButton"))
+		DnD.ShowWdg(getChild(mainForm, "BEButton"))
 	end
 end
 
@@ -40,7 +40,7 @@ function enableAOPanelIntegration( enable )
 	if enable then
 		onAOPanelStart()
 	else
-		show(getChild(mainForm, "BEButton"))
+		DnD.ShowWdg(getChild(mainForm, "BEButton"))
 	end
 end
 
