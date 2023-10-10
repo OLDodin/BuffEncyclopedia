@@ -44,6 +44,9 @@ function InitBuffInfoForm()
 	createWidget(group1, "value6", "TextView", nil, nil, 40, 25, txtValuesShift, topYShift+125)
 	setLocaleText(createWidget(group1, "producer", "TextView", nil, nil, typesTxtWidth, 25, 20, topYShift+150))
 	createWidget(group1, "value7", "TextView", nil, nil, 50, 25, txtValuesShift, topYShift+150)
+	setLocaleText(createWidget(group1, "classes", "TextView", nil, nil, typesTxtWidth, 25, 20, topYShift+175))
+	createWidget(group1, "value8", "TextView", nil, nil, 200, 75, txtValuesShift, topYShift+175):SetMultiline(true)
+	
 	
 	local description = createWidget(group1, "desc", "TextView", nil, nil, 245, 300, txtValuesShift+60, topYShift)
 	description:SetMultiline(true)
@@ -60,14 +63,14 @@ function SetBuffInfoFormSetting(aForm, aList, anIndex)
 	local locale = getLocale()
 	
 	local valuedText = toValuedText(buffInfo.name, "ColorWhite", "left", 18)
-	setText(getChild(aForm, "header"), common.ExtractWStringFromValuedText(valuedText))
+	setText(getChild(aForm, "header"), valuedText:ToWString())
 	getChild(aForm, "header"):SetFocus(true)
 	
 	getChild(aForm, "preview1"):SetBackgroundTexture(buffInfo.texture)
 	
 	local group1 = getChild(aForm, "group1")
 		
-	local wDesc = common.ExtractWStringFromValuedText(buffInfo.description)
+	local wDesc = buffInfo.description:ToWString()
 	setText(getChild(group1, "desc"), wDesc)
 
 	setText(getChild(group1, "value1"), locale[tostring(not buffInfo.isPositive)], buffInfo.isPositive and "ColorRed" or "ColorGreen", "center", 12)
@@ -77,6 +80,15 @@ function SetBuffInfoFormSetting(aForm, aList, anIndex)
 	setText(getChild(group1, "value5"), locale[tostring(buffInfo.isCleanable)], buffInfo.isCleanable and "ColorGreen" or "ColorRed", "center", 12)
 	setText(getChild(group1, "value6"), locale[tostring(buffInfo.isControls)], buffInfo.isControls and "ColorGreen" or "ColorRed", "center", 12)
 	setText(getChild(group1, "value7"), locale[buffInfo.producerType], "ColorWhite", "center", 12)
+	
+	local classesInList = common.GetEmptyWString()
+	for className, _ in pairs(g_classMaskShift) do
+		if IsPackedValueHasClass(buffInfo.producerClasses, className) then
+			classesInList = classesInList.." "..locale["show"..className]
+		end
+	end
+	
+	setText(getChild(group1, "value8"), classesInList, "LogColorYellow", "left", 12)
 	
 end
 

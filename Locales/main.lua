@@ -8,7 +8,7 @@ Global("BUFF_PRODUCER", 5)
 Global("UNKNOWN_PRODUCER", 6)
 
 
-local localeGroup = common.GetAddonRelatedTextGroup(common.GetLocalization()) or common.GetAddonRelatedTextGroup("eng")
+local localeGroup = common.GetAddonRelatedTextGroup(common.GetLocalization(), true) or common.GetAddonRelatedTextGroup("eng")
 
 function getLocale()
 	return setmetatable(Locales, 

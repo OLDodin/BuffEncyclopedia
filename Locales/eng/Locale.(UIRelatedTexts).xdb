@@ -97,5 +97,61 @@
       <name>showPositive</name>
       <resource href="showPositive.txt"/>
     </Item>
+	<Item>
+      <name>showDuplicate</name>
+      <resource href="showDuplicate.txt"/>
+    </Item>
+	<Item>
+      <name>showWARRIOR</name>
+      <resource href="WARRIOR.txt"/>
+    </Item>
+	<Item>
+      <name>showPALADIN</name>
+      <resource href="PALADIN.txt"/>
+    </Item>
+	<Item>
+      <name>showMAGE</name>
+      <resource href="MAGE.txt"/>
+    </Item>
+	<Item>
+      <name>showDRUID</name>
+      <resource href="DRUID.txt"/>
+    </Item>
+	<Item>
+      <name>showPSIONIC</name>
+      <resource href="PSIONIC.txt"/>
+    </Item>
+	<Item>
+      <name>showSTALKER</name>
+      <resource href="STALKER.txt"/>
+    </Item>
+	<Item>
+      <name>showPRIEST</name>
+      <resource href="PRIEST.txt"/>
+    </Item>
+	<Item>
+      <name>showNECROMANCER</name>
+      <resource href="NECROMANCER.txt"/>
+    </Item>
+	<Item>
+      <name>showENGINEER</name>
+      <resource href="ENGINEER.txt"/>
+    </Item>
+	<Item>
+      <name>showBARD</name>
+      <resource href="BARD.txt"/>
+    </Item>
+	<Item>
+      <name>showWARLOCK</name>
+      <resource href="WARLOCK.txt"/>
+    </Item>
+	<Item>
+      <name>showUNKNOWN</name>
+      <resource href="UNKNOWN.txt"/>
+    </Item>
+	<Item>
+      <name>classes</name>
+      <resource href="classes.txt"/>
+    </Item>
   </items>
 </UIRelatedTexts>

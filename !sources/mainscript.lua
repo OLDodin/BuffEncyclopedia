@@ -9,7 +9,75 @@ local m_subscribedUnits = {}
 
 local m_secondsCnt = 0
 local m_wasSomeChangesToSave = false
+local m_currAllListContainDuplicate = false
 
+Global("g_classMaskShift", {
+	["WARRIOR"]		= 0,  --0000 0000 0001 b
+	["PALADIN"]		= 1,  --0000 0000 0010 b
+	["MAGE"]		= 2,  --0000 0000 0100 b
+	["DRUID"]		= 3,  --0000 0000 1000 b
+	["PSIONIC"]		= 4,  --0000 0001 0000 b
+	["STALKER"]		= 5,  --0000 0010 0000 b
+	["PRIEST"]		= 6,  --0000 0100 0000 b
+	["NECROMANCER"]	= 7,  --0000 1000 0000 b
+	["ENGINEER"]    = 8,  --0001 0000 0000 b
+	["BARD"]		= 9,  --0010 0000 0000 b
+	["WARLOCK"] 	= 10, --0100 0000 0000 b
+	["UNKNOWN"]		= 11  --1000 0000 0000 b
+})
+function GetClassMask(aClassName)
+	return bit.lshift(1, g_classMaskShift[aClassName])
+end
+
+function IsPackedValueHasClass(aBitPackedValue, aClassName)
+	return bit.rshift(bit.band(aBitPackedValue, GetClassMask(aClassName)), g_classMaskShift[aClassName]) == 1
+end
+
+function AddClassToPackedValue(aBitPackedValue, aClassName)
+	return bit.bor(aBitPackedValue, GetClassMask(aClassName))
+end
+
+function BuildClassMask(aWARRIOR, aPALADIN, aMAGE, aDRUID, aPSIONIC, aSTALKER, aPRIEST, aNECROMANCER, aENGINEER, aBARD, aWARLOCK, aUNKNOWN)
+	local classMask = 0
+	if aWARRIOR then
+		classMask = AddClassToPackedValue(classMask, "WARRIOR")
+	end
+	if aPALADIN then
+		classMask = AddClassToPackedValue(classMask, "PALADIN")
+	end
+	if aMAGE then
+		classMask = AddClassToPackedValue(classMask, "MAGE")
+	end
+	if aDRUID then
+		classMask = AddClassToPackedValue(classMask, "DRUID")
+	end
+	if aPSIONIC then
+		classMask = AddClassToPackedValue(classMask, "PSIONIC")
+	end
+	if aSTALKER then
+		classMask = AddClassToPackedValue(classMask, "STALKER")
+	end
+	if aPRIEST then
+		classMask = AddClassToPackedValue(classMask, "PRIEST")
+	end
+	if aNECROMANCER then
+		classMask = AddClassToPackedValue(classMask, "NECROMANCER")
+	end
+	if aENGINEER then
+		classMask = AddClassToPackedValue(classMask, "ENGINEER")
+	end
+	if aBARD then
+		classMask = AddClassToPackedValue(classMask, "BARD")
+	end
+	if aWARLOCK then
+		classMask = AddClassToPackedValue(classMask, "WARLOCK")
+	end
+	if aUNKNOWN then
+		classMask = AddClassToPackedValue(classMask, "UNKNOWN")
+	end
+	return classMask
+end
+	
 function AddReaction(name, func)
 	if not m_reactions then m_reactions={} end
 	m_reactions[name]=func
@@ -38,6 +106,7 @@ function ChangeMainWndVisible()
 		DnD.HideWdg(m_configForm)
 	else
 		UpdatePressed()
+		ChangedFilter()
 		DnD.ShowWdg(m_configForm)
 	end
 	
@@ -48,22 +117,49 @@ local function GetTimestamp()
 	return common.GetMsFromDateTime( common.GetLocalDateTime() )
 end
 
+function SetProducerClass(anObjID, aPackedValue)
+	local producerClasses
+	if isExist(anObjID) and unit.IsPlayer(anObjID) then
+		local playerClass = unit.GetClass(anObjID)
+		if playerClass and playerClass.className then
+			producerClasses = AddClassToPackedValue(aPackedValue, playerClass.className)
+		else
+			producerClasses = AddClassToPackedValue(aPackedValue, "UNKNOWN")
+		end
+	else
+		producerClasses = AddClassToPackedValue(aPackedValue, "UNKNOWN")
+	end
+	return producerClasses
+end
+
 function AddBuffToEncylopedia(aBuffInfo, aNeedSaveOnChanges)
-	if aBuffInfo and aBuffInfo.name and not common.IsEmptyWString(aBuffInfo.name) then
+	if aBuffInfo and aBuffInfo.name and not aBuffInfo.name:IsEmpty() then
 		local myInfo = {}
 		myInfo.name = aBuffInfo.name
 		
 		myInfo.buffs = {}
 		
 		local buffResourceAlreadyAdded = false
-		local addRes = m_searchAllTree:add(myInfo)
-		if not addRes then					
+		
+		local findedInfo = m_searchAllTree:find(myInfo)
+		if findedInfo ~= nil then
+			myInfo = findedInfo
 			for _, buff in pairs(myInfo.buffs) do
 				if buff.buffId:IsEqual(aBuffInfo.buffId) then
+					local producerClasses = SetProducerClass(aBuffInfo.producer.casterId, buff.producerClasses)
+					if buff.producerClasses ~= producerClasses then
+						buff.producerClasses = producerClasses
+						--LogInfo("modify myInfo.name = ", myInfo.name, "  producerClasses = ", producerClasses)
+						if aNeedSaveOnChanges then
+							m_wasSomeChangesToSave = true
+						end
+					end
 					buffResourceAlreadyAdded = true
 					break
 				end
 			end
+		else
+			m_searchAllTree:add(myInfo)
 		end
 		
 		if not buffResourceAlreadyAdded then
@@ -75,6 +171,7 @@ function AddBuffToEncylopedia(aBuffInfo, aNeedSaveOnChanges)
 			unicBuff.isStackable = aBuffInfo.isStackable
 			unicBuff.isGradual = aBuffInfo.isGradual
 			unicBuff.producerType = aBuffInfo.producerType or GetProducerType(aBuffInfo)
+			unicBuff.producerClasses =  SetProducerClass(aBuffInfo.producer.casterId, aBuffInfo.producerClasses or 0)
 			unicBuff.description = aBuffInfo.description
 			unicBuff.texture = aBuffInfo.texture
 			unicBuff.buffId = aBuffInfo.buffId
@@ -147,7 +244,7 @@ function OnEventSecondTimer()
 	end
 	
 	m_secondsCnt = m_secondsCnt + 1
-	if m_secondsCnt > 20 then
+	if m_secondsCnt > 30 then
 		m_secondsCnt = 0
 		if m_wasSomeChangesToSave then
 			SavePressed()
@@ -156,7 +253,7 @@ function OnEventSecondTimer()
 end
 
 function GetProducerType(aBuffInfo)
-	return isExist(aBuffInfo.producer.casterId) and object.IsUnit(aBuffInfo.producer.casterId) and unit.IsPlayer(aBuffInfo.producer.casterId) and PLAYER_PRODUCER
+	return isExist(aBuffInfo.producer.casterId) and unit.IsPlayer(aBuffInfo.producer.casterId) and PLAYER_PRODUCER
 	or isExist(aBuffInfo.producer.casterId) and UNIT_PRODUCER
 	or aBuffInfo.producer.spellId and SPELL_PRODUCER
 	or aBuffInfo.producer.abilityId and ABILITY_PRODUCER
@@ -204,6 +301,7 @@ function SavePressed()
 		for _, buffInfo in pairs(record.buffs) do
 			local simpleInfo = {}
 			simpleInfo.producerType = buffInfo.producerType
+			simpleInfo.producerClasses = buffInfo.producerClasses
 			simpleInfo.buffId = buffInfo.buffId
 			table.insert(settings.db, simpleInfo)
 		end
@@ -221,6 +319,10 @@ function LoadFormSettings()
 			local info = object.GetBuffInfo(simpleInfo.buffId)
 			if info then
 				info.producerType = simpleInfo.producerType
+				info.producerClasses = simpleInfo.producerClasses
+				if info.producerClasses == nil then
+					info.producerClasses = AddClassToPackedValue(0, "UNKNOWN")
+				end
 				AddBuffToEncylopedia(info, false)
 			end
 		end
@@ -230,16 +332,21 @@ function LoadFormSettings()
 end
 
 function UpdatePressed()
+	local showDuplicate = IsShowDuplicate(m_configForm)
 	m_currAllList = {}
 	for _, record in ipairs(m_searchAllTree:getTreeInList()) do 
 		for _, buffInfo in pairs(record.buffs) do
 			buffInfo.name = record.name
 			buffInfo.nameStr = toLowerString(record.name)
 			table.insert(m_currAllList, buffInfo)
+			if not showDuplicate then
+				break
+			end
 		end
 	end
 	
 	SetScrollList(m_configForm, m_currAllList)
+	m_currAllListContainDuplicate = showDuplicate
 end
 
 function ShowBuffInfoPressed(aWdg)
@@ -255,14 +362,20 @@ function EditLineChanged()
 end
 
 function ChangedFilter()
-	local cleanable, nocleanable, negative, positive = GetFilters(m_configForm)
+	local showDuplicate = IsShowDuplicate(m_configForm)
+	if m_currAllListContainDuplicate ~= showDuplicate then
+		UpdatePressed()
+	end
+	local cleanable, nocleanable, negative, positive, showWARRIOR, showPALADIN, showMAGE, showDRUID, showPSIONIC, showSTALKER, showPRIEST, showNECROMANCER, showENGINEER, showBARD, showWARLOCK, showUNKNOWN = GetFilters(m_configForm)
 	local filtredBuffs = {}
+	local classMask = BuildClassMask(showWARRIOR, showPALADIN, showMAGE, showDRUID, showPSIONIC, showSTALKER, showPRIEST, showNECROMANCER, showENGINEER, showBARD, showWARLOCK, showUNKNOWN)
 
 	for _, buffInfo in pairs(m_currAllList) do
 		if (cleanable and buffInfo.isCleanable 
 			or nocleanable and not buffInfo.isCleanable)
 			and (negative and not buffInfo.isPositive
 			or positive and buffInfo.isPositive)
+			and bit.band(buffInfo.producerClasses, classMask) ~= 0
 		then
 			table.insert(filtredBuffs, buffInfo)
 		end
@@ -332,7 +445,20 @@ function Init()
 	AddReaction("showNoCleanable", ChangedFilter)
 	AddReaction("showNegative", ChangedFilter)
 	AddReaction("showPositive", ChangedFilter)
-		
+	AddReaction("showDuplicate", ChangedFilter)
+	AddReaction("showWARRIOR", ChangedFilter)
+	AddReaction("showPALADIN", ChangedFilter)
+	AddReaction("showMAGE", ChangedFilter)
+	AddReaction("showDRUID", ChangedFilter)
+	AddReaction("showPSIONIC", ChangedFilter)
+	AddReaction("showSTALKER", ChangedFilter)
+	AddReaction("showPRIEST", ChangedFilter)
+	AddReaction("showNECROMANCER", ChangedFilter)
+	AddReaction("showENGINEER", ChangedFilter)
+	AddReaction("showBARD", ChangedFilter)
+	AddReaction("showWARLOCK", ChangedFilter)
+	AddReaction("showUNKNOWN", ChangedFilter)
+
 	
 	AoPanelSupportInit()
 end
