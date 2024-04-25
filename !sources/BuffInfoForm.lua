@@ -62,8 +62,9 @@ function SetBuffInfoFormSetting(aForm, aList, anIndex)
 	local buffInfo = aList[anIndex]
 	local locale = getLocale()
 	
-	local valuedText = toValuedText(buffInfo.name, "ColorWhite", "left", 18)
-	setText(getChild(aForm, "header"), valuedText:ToWString())
+	--local valuedText = toValuedText(buffInfo.name, "ColorWhite", "left", 18)
+	--setText(getChild(aForm, "header"), valuedText:ToWString())
+	setText(getChild(aForm, "header"), buffInfo.name)
 	getChild(aForm, "header"):SetFocus(true)
 	
 	getChild(aForm, "preview1"):SetBackgroundTexture(buffInfo.texture)

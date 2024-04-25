@@ -135,7 +135,8 @@ end
 function AddBuffToEncylopedia(aBuffInfo, aNeedSaveOnChanges)
 	if aBuffInfo and aBuffInfo.name and not aBuffInfo.name:IsEmpty() then
 		local myInfo = {}
-		myInfo.name = aBuffInfo.name
+		myInfo.name = removeHtmlFromWString(aBuffInfo.name)
+		--myInfo.name = aBuffInfo.name
 		
 		myInfo.buffs = {}
 		
