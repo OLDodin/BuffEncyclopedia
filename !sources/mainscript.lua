@@ -131,7 +131,7 @@ function SetProducerClass(anObjID, aPackedValue)
 	end
 	return producerClasses
 end
-
+local g_groupsTypes = {}
 function AddBuffToEncylopedia(aBuffInfo, aNeedSaveOnChanges)
 	if aBuffInfo and aBuffInfo.name and not aBuffInfo.name:IsEmpty() then
 		local myInfo = {}
@@ -162,7 +162,14 @@ function AddBuffToEncylopedia(aBuffInfo, aNeedSaveOnChanges)
 		else
 			m_searchAllTree:add(myInfo)
 		end
-		
+	--[[	
+		for _, groupName in pairs(aBuffInfo.groups) do
+			if not g_groupsTypes[groupName] then
+				g_groupsTypes[groupName] = true
+				LogInfo("found aBuffInfo = ", aBuffInfo.name, "  groupName = ", groupName)
+			end
+		end
+		]]
 		if not buffResourceAlreadyAdded then
 			local unicBuff = {}
 			unicBuff.isCleanable = IsCleanable(aBuffInfo)

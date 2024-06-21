@@ -14,28 +14,28 @@ function InitSearchForm()
 	createWidget(form, "searchEdit", "EditLine", nil, nil, 330, 25, 80, 46, nil, nil)
 	setLocaleText(createWidget(form, "searchBtn", "TextView", nil, nil, 80, 25, 20, 46))
 	
-	setLocaleText(createWidget(form, "showDuplicate", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 220, 25, 20, 75), true, true)
+	setLocaleText(createWidget(form, "showDuplicate", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 220, 25, 20, 75), false)
 	
-	setLocaleText(createWidget(form, "showCleanable", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 160, 25, 20, 110), true, true)
-	setLocaleText(createWidget(form, "showNoCleanable", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 160, 25, 20, 135), true, true)
-	setLocaleText(createWidget(form, "showNegative", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 160, 25, 200, 110), true, true)
-	setLocaleText(createWidget(form, "showPositive", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 160, 25, 200, 135), true, true)
+	setLocaleText(createWidget(form, "showCleanable", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 160, 25, 20, 110), true)
+	setLocaleText(createWidget(form, "showNoCleanable", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 160, 25, 20, 135), true)
+	setLocaleText(createWidget(form, "showNegative", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 160, 25, 200, 110), true)
+	setLocaleText(createWidget(form, "showPositive", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 160, 25, 200, 135), true)
 	
-	setLocaleText(createWidget(form, "showWARRIOR", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 120, 25, 20, 170), true, true)
-	setLocaleText(createWidget(form, "showPALADIN", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 120, 25, 160, 170), true, true)
-	setLocaleText(createWidget(form, "showMAGE", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 120, 25, 300, 170), true, true)
+	setLocaleText(createWidget(form, "showWARRIOR", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 120, 25, 20, 170), true)
+	setLocaleText(createWidget(form, "showPALADIN", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 120, 25, 160, 170), true)
+	setLocaleText(createWidget(form, "showMAGE", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 120, 25, 300, 170), true)
 	
-	setLocaleText(createWidget(form, "showDRUID", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 120, 25, 20, 195), true, true)
-	setLocaleText(createWidget(form, "showPSIONIC", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 120, 25, 160, 195), true, true)
-	setLocaleText(createWidget(form, "showSTALKER", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 120, 25, 300, 195), true, true)
+	setLocaleText(createWidget(form, "showDRUID", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 120, 25, 20, 195), true)
+	setLocaleText(createWidget(form, "showPSIONIC", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 120, 25, 160, 195), true)
+	setLocaleText(createWidget(form, "showSTALKER", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 120, 25, 300, 195), true)
 	
-	setLocaleText(createWidget(form, "showPRIEST", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 120, 25, 20, 220), true, true)
-	setLocaleText(createWidget(form, "showNECROMANCER", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 120, 25, 160, 220), true, true)
-	setLocaleText(createWidget(form, "showENGINEER", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 120, 25, 300, 220), true, true)
+	setLocaleText(createWidget(form, "showPRIEST", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 120, 25, 20, 220), true)
+	setLocaleText(createWidget(form, "showNECROMANCER", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 120, 25, 160, 220), true)
+	setLocaleText(createWidget(form, "showENGINEER", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 120, 25, 300, 220), true)
 	
-	setLocaleText(createWidget(form, "showBARD", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 120, 25, 20, 245), true, true)
-	setLocaleText(createWidget(form, "showWARLOCK", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 120, 25, 160, 245), true, true)
-	setLocaleText(createWidget(form, "showUNKNOWN", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 120, 25, 300, 245), true, true)
+	setLocaleText(createWidget(form, "showBARD", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 120, 25, 20, 245), true)
+	setLocaleText(createWidget(form, "showWARLOCK", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 120, 25, 160, 245), true)
+	setLocaleText(createWidget(form, "showUNKNOWN", "CheckBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 120, 25, 300, 245), true)
 
 	local btnWidth = 100
 	
@@ -52,6 +52,7 @@ end
 function SetScrollList(aForm, aList)
 	m_scrollList = aList
 	ShowValuesFromTable(aList, aForm, getChild(aForm, "containerBuffs"))
+	collectgarbage()
 end
 
 function GetSearchScrollList()

@@ -6,11 +6,14 @@ function GetIndexForWidget(anWidget)
 	if not parent or not container then 
 		return nil
 	end
-	local index = nil
-	for i=0, container:GetElementCount() do
-		if equals(anWidget, getChild(container:At(i), getName(anWidget), true)) then index=i end
+	local searchingName = getName(anWidget)
+	
+	for i=0, container:GetElementCount()-1 do
+		local childWithName = getChild(container:At(i), searchingName, true)
+		if childWithName and anWidget:IsEqual(childWithName) then 
+			return i
+		end
 	end
-	return index
 end
 
 function GenerateWidgetForTable(aTable, aContainer, anIndex)
@@ -19,7 +22,7 @@ function GenerateWidgetForTable(aTable, aContainer, anIndex)
 	local containerName = getName(aContainer)
 	
 	
-	local panel=createWidget(aContainer, nil, "Panel", WIDGET_ALIGN_BOTH, WIDGET_ALIGN_LOW, nil, 40, nil, nil, true)
+	local panel=createWidget(mainForm, "scrollElem_"..tostring(anIndex), "Panel", WIDGET_ALIGN_BOTH, WIDGET_ALIGN_LOW, nil, 40)
 	setBackgroundColor(panel, {r=1, g=1, b=1, a=0.5})
 	setText(createWidget(panel, "Id", "TextView", WIDGET_ALIGN_LOW, WIDGET_ALIGN_CENTER, 40, 20, 4), anIndex)
 	if aTable.name then
@@ -28,7 +31,6 @@ function GenerateWidgetForTable(aTable, aContainer, anIndex)
 	end
 	local preview = createWidget(panel, "preview", "ImageBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 30, 30, 35, 6)
 	preview:SetBackgroundTexture(aTable.texture)
-
 	createWidget(panel, "scrollBtn"..containerName, "EmptyButton", WIDGET_ALIGN_BOTH, WIDGET_ALIGN_LOW, nil, 40, nil, nil)
 	
 	return panel
@@ -44,15 +46,19 @@ function ShowValuesFromTable(aTable, aForm, aContainer)
 		return nil 
 	end
 	
-	if container.RemoveItems then 
-		container:RemoveItems() 
+	local containerArr = {}
+	for i = 0, container:GetElementCount() - 1 do
+		table.insert(containerArr, container:At(i))
 	end
+	container:RemoveItems() 
+	for j, containerWdg in ipairs(containerArr) do
+		containerWdg:DestroyWidget()
+	end
+	
 	for i, element in ipairs(aTable) do
-		if container.PushBack then
-			local widget=GenerateWidgetForTable(element, container, i)
-			if widget then 
-				container:PushBack(widget) 
-			end
+		local widget=GenerateWidgetForTable(element, container, i)
+		if widget then 
+			container:PushBack(widget)
 		end
 	end
 end
@@ -62,8 +68,10 @@ function DeleteContainer(aTable, anWidget, aForm)
 	local container = getParent(getParent(getParent(parent)))
 	local index = GetIndexForWidget(anWidget)
 	if container and index and aTable then
+		local deletingWdg = container:At(index)
 		container:RemoveAt(index)
 		table.remove(aTable, index+1)
+		deletingWdg:DestroyWidget()
 	end
 	ShowValuesFromTable(aTable, aForm, container)
 end

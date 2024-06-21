@@ -6,7 +6,7 @@
 	<localizedNameFileRef href="name.txt"/>
 	<localizedDescFileRef href="desc.txt"/>
 	<ScriptFileRefs>
-		<Item href="/Mods/SampleCommon/SampleAddonBase.lua"/>
+		<Item href="AddonBase.lua"/>
 		<Item href="Locales/main.lua"/>
 		<Item href="LibDnD.lua"/>
 		<Item href="Utils.lua"/>
