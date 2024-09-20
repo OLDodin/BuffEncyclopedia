@@ -5,9 +5,8 @@
 	<Variants>
 		<Item>
 			<Reaction>execute</Reaction>
-			<ReactionRightClick>RIGHT_CLICK</ReactionRightClick>
+			<ReactionRightClick>executeRightClick</ReactionRightClick>
 		</Item>
 	</Variants>
-	<reactionOnPointing>OnPointing</reactionOnPointing>
 	<BackLayer href="" />
 </WidgetButton>

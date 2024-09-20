@@ -6,18 +6,19 @@
 	<localizedNameFileRef href="name.txt"/>
 	<localizedDescFileRef href="desc.txt"/>
 	<ScriptFileRefs>
-		<Item href="AddonBase.lua"/>
-		<Item href="Locales/main.lua"/>
-		<Item href="LibDnD.lua"/>
-		<Item href="Utils.lua"/>
-		<Item href="AVL/avl_WStr.lua"/>
-		<Item href="slider.lua"/>
-		<Item href="aoPanelSupport.lua"/>
-		<Item href="Settings.lua"/>
-		<Item href="ScrollListSupport.lua"/>
-		<Item href="SearchForm.lua"/>
-		<Item href="BuffInfoForm.lua"/>
-		<Item href="mainscript.lua"/>
+		<Item href="Scripts/common/AddonBase.lua"/>
+		<Item href="Scripts/Locales.lua"/>
+		<Item href="Scripts/common/LibDnD.lua"/>
+		<Item href="Scripts/common/Utils.lua"/>
+		<Item href="Scripts/common/ReactionHelper.lua"/>
+		<Item href="Scripts/AVL/avl_WStr.lua"/>
+		<Item href="Scripts/slider.lua"/>
+		<Item href="Scripts/aoPanelSupport.lua"/>
+		<Item href="Scripts/Settings.lua"/>
+		<Item href="Scripts/ScrollListSupport.lua"/>
+		<Item href="Scripts/SearchForm.lua"/>
+		<Item href="Scripts/BuffInfoForm.lua"/>
+		<Item href="Scripts/mainscript.lua"/>
 	</ScriptFileRefs>
 	<textsGroups>
 		<Item>

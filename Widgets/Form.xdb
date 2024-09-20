@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <WidgetForm>
 	<Name>BuffEncyclopedia</Name>
-	<Priority>4550</Priority>
+	<Priority>4750</Priority>
 	<Children>
 		<Item href="Templates/Main.xdb#xpointer(/WidgetPanel)"/>
 	</Children>
