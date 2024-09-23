@@ -414,7 +414,7 @@ function Init()
 	common.RegisterReactionHandler(ButtonPressed, "execute")
 	common.RegisterReactionHandler(CheckBoxChangedOn, "CheckBoxChangedOn")
 	common.RegisterReactionHandler(CheckBoxChangedOff, "CheckBoxChangedOff")
-	common.RegisterReactionHandler(EditLineChanged, "editLineChanged")
+	common.RegisterReactionHandler(EditLineChanged, "EditLineChanged")
 	common.RegisterEventHandler(OnUnitChanged, "EVENT_UNITS_CHANGED")
 	--по таймеру проверять валидность списка подписанных
 	common.RegisterEventHandler(OnEventSecondTimer, "EVENT_SECOND_TIMER")

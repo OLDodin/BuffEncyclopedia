@@ -116,7 +116,7 @@ end
 
 local m_valuedText = cachedCreateValuedText()
 m_valuedText:SetFormat(toWString('<header><r name="text_label"/></header>'))
-local m_htmlWstr = userMods.ToWString("<html>")
+local m_htmlWstr = cachedToWString("<html>")
 
 function removeHtmlFromWString(text)
 	if text:IsContain(m_htmlWstr) then
