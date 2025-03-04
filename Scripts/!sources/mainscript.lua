@@ -329,7 +329,7 @@ function UpdatePressed()
 			end
 		end
 	end
-	
+
 	SetScrollList(m_configForm, m_currAllList)
 	m_currAllListContainDuplicate = showDuplicate
 end
@@ -398,8 +398,7 @@ local function EditLineEsc(aParams)
 end
 
 function Init()
-	m_template = getChild(mainForm, "Template")
-	setTemplateWidget(m_template)
+	setTemplateWidget("common")
 
 	local button=createWidget(mainForm, "BEButton", "Button", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 25, 25, 300, 120)
 	setText(button, "BE")

@@ -3,7 +3,7 @@
 	<Name>BuffEncyclopedia</Name>
 	<Priority>4750</Priority>
 	<Children>
-		<Item href="Templates/Main.xdb#xpointer(/WidgetPanel)"/>
+		
 	</Children>
 	<BackLayer href="" />
 	<FrontLayer href="" />

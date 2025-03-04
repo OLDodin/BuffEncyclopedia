@@ -12,7 +12,6 @@
 		<Item href="Scripts/common/Utils.lua"/>
 		<Item href="Scripts/common/ReactionHelper.lua"/>
 		<Item href="Scripts/AVL/avl_WStr.lua"/>
-		<Item href="Scripts/slider.lua"/>
 		<Item href="Scripts/aoPanelSupport.lua"/>
 		<Item href="Scripts/Settings.lua"/>
 		<Item href="Scripts/ScrollListSupport.lua"/>
@@ -30,8 +29,13 @@
 			<texts href="Locales/eng/Locale.(UIRelatedTexts).xdb#xpointer(/UIRelatedTexts)"/>
 		</Item>
 	</textsGroups>
-  
-  <visObjects href=""/>
+	<widgetGroups>
+		<Item>
+			<groupName>common</groupName>
+			<widgets href="Widgets/Resources/common/WidgetTemplates.xdb" />
+		</Item>
+	</widgetGroups>
+	<visObjects href=""/>
  
 <addon_name>BuffEncyclopedia</addon_name>
 </UIAddon>

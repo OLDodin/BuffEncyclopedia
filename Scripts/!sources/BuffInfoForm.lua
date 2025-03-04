@@ -1,8 +1,7 @@
 local m_prevShift = 0
 
 function InitBuffInfoForm()
-	local template = getChild(mainForm, "Template")
-	setTemplateWidget(template)
+	setTemplateWidget("common")
 	local formWidth = 530
 	local form=createWidget(mainForm, "BuffInfoForm", "Panel", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, formWidth, 400, 100+m_prevShift, 120+m_prevShift)
 	priority(form, 2500)
