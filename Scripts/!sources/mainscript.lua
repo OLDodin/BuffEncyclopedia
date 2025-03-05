@@ -82,7 +82,7 @@ function ChangeMainWndVisible()
 	if isVisible(m_configForm) then
 		WndMgr.HideWdg(m_configForm)
 	else
-		UpdatePressed()
+		UpdateCurrentAllList()
 		ChangedFilter()
 		WndMgr.ShowWdg(m_configForm)
 	end
@@ -316,7 +316,7 @@ function LoadFormSettings()
 	CheckAllUnits()
 end
 
-function UpdatePressed()
+function UpdateCurrentAllList()
 	local showDuplicate = IsShowDuplicate(m_configForm)
 	m_currAllList = {}
 	for _, record in ipairs(m_searchAllTree:getTreeInList()) do 
@@ -330,7 +330,6 @@ function UpdatePressed()
 		end
 	end
 
-	SetScrollList(m_configForm, m_currAllList)
 	m_currAllListContainDuplicate = showDuplicate
 end
 
@@ -349,7 +348,7 @@ end
 function ChangedFilter()
 	local showDuplicate = IsShowDuplicate(m_configForm)
 	if m_currAllListContainDuplicate ~= showDuplicate then
-		UpdatePressed()
+		UpdateCurrentAllList()
 	end
 	local cleanable, nocleanable, negative, positive, showWARRIOR, showPALADIN, showMAGE, showDRUID, showPSIONIC, showSTALKER, showPRIEST, showNECROMANCER, showENGINEER, showBARD, showWARLOCK, showUNKNOWN = GetFilters(m_configForm)
 	local filtredBuffs = {}
