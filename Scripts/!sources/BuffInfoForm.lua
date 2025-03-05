@@ -3,9 +3,10 @@ local m_prevShift = 0
 function InitBuffInfoForm()
 	setTemplateWidget("common")
 	local formWidth = 530
-	local form=createWidget(mainForm, "BuffInfoForm", "Panel", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, formWidth, 400, 100+m_prevShift, 120+m_prevShift)
-	priority(form, 2500)
+	local form=createWidget(mainForm, "BuffInfoForm", "PanelWnd", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, formWidth, 400, 100+m_prevShift, 120+m_prevShift)
 	hide(form)
+	WndMgr.AddWnd(form)
+	
 	m_prevShift = m_prevShift + 5
 	if m_prevShift > 50 then
 		m_prevShift = 0

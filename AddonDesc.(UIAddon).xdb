@@ -14,6 +14,7 @@
 		<Item href="Scripts/AVL/avl_WStr.lua"/>
 		<Item href="Scripts/aoPanelSupport.lua"/>
 		<Item href="Scripts/Settings.lua"/>
+		<Item href="Scripts/common/WndManager.lua"/>
 		<Item href="Scripts/ScrollListSupport.lua"/>
 		<Item href="Scripts/SearchForm.lua"/>
 		<Item href="Scripts/BuffInfoForm.lua"/>

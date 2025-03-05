@@ -5,9 +5,9 @@ local m_scrollList = nil
 function InitSearchForm()
 	setTemplateWidget("common")
 	local formWidth = 440
-	local form=createWidget(mainForm, "SearchForm", "Panel", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, formWidth, 650, 100, 120)
-	priority(form, 2500)
+	local form=createWidget(mainForm, "SearchForm", "PanelWnd", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, formWidth, 650, 100, 120)
 	hide(form)
+	WndMgr.AddWnd(form)
 
 	setLocaleText(createWidget(form, "header1", "TextView", nil, nil, 200, 25, 20, 20))
 	createWidget(form, "searchEdit", "EditLine", nil, nil, 330, 25, 80, 46, nil, nil)

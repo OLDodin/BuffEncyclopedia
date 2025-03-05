@@ -80,11 +80,11 @@ end
 	
 function ChangeMainWndVisible()
 	if isVisible(m_configForm) then
-		DnD.HideWdg(m_configForm)
+		WndMgr.HideWdg(m_configForm)
 	else
 		UpdatePressed()
 		ChangedFilter()
-		DnD.ShowWdg(m_configForm)
+		WndMgr.ShowWdg(m_configForm)
 	end
 	
 	collectgarbage()
@@ -339,7 +339,7 @@ function ShowBuffInfoPressed(aWdg)
 	
 	local buffInfoForm = InitBuffInfoForm()
 	SetBuffInfoFormSetting(buffInfoForm, GetSearchScrollList(), index)
-	DnD.ShowWdg(buffInfoForm)
+	WndMgr.ShowWdg(buffInfoForm)
 end
 
 function EditLineChanged()
@@ -418,13 +418,13 @@ function Init()
 	--по таймеру проверять валидность списка подписанных
 	common.RegisterEventHandler(OnEventSecondTimer, "EVENT_SECOND_TIMER")
 	common.RegisterEventHandler( OnSlashCommand, "EVENT_UNKNOWN_SLASH_COMMAND" )
-	
+	common.RegisterReactionHandler(function (aParams) WndMgr.OnWndClicked(aParams.widget) end, "PanelWndClick")
 	common.RegisterReactionHandler(EditLineEsc, "EditLineEsc")
 		
 	AddReaction("BEButton", function () ChangeMainWndVisible() end)
 	AddReaction("closeMainButton", function (aWdg) ChangeMainWndVisible() end)
-	AddReaction("closeButton", function (aWdg) DnD.SwapWdg(getParent(aWdg)) end)
-	AddReaction("closeBuffButton", function (aWdg) DnD.SwapWdg(getParent(aWdg)) end)
+	AddReaction("closeButton", function (aWdg) WndMgr.SwapWnd(getParent(aWdg)) end)
+	AddReaction("closeBuffButton", function (aWdg) WndMgr.SwapWnd(getParent(aWdg)) end)
 	AddReaction("scrollBtncontainerBuffs", ShowBuffInfoPressed)
 	AddReaction("showCleanable", ChangedFilter)
 	AddReaction("showNoCleanable", ChangedFilter)
@@ -443,7 +443,6 @@ function Init()
 	AddReaction("showBARD", ChangedFilter)
 	AddReaction("showWARLOCK", ChangedFilter)
 	AddReaction("showUNKNOWN", ChangedFilter)
-
 	
 	AoPanelSupportInit()
 end
