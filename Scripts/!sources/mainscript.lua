@@ -399,7 +399,7 @@ end
 function Init()
 	setTemplateWidget("common")
 
-	local button=createWidget(mainForm, "BEButton", "Button", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 25, 25, 300, 120)
+	local button=createWidget(mainForm, "BEButton", "Button", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 32, 32, 300, 120)
 	setText(button, "BE")
 	DnD.Init(button, button, true)
 

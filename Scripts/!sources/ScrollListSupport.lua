@@ -5,11 +5,10 @@ function GenerateWidgetForTable(aTable, aContainer, anIndex)
 	setTemplateWidget("common")
 	local panel=createWidget(mainForm, "scrollElem_"..tostring(anIndex), "Panel", WIDGET_ALIGN_BOTH, WIDGET_ALIGN_LOW, nil, 40)
 	setBackgroundColor(panel, {r=1, g=1, b=1, a=0.5})
-	setText(createWidget(panel, "Id", "TextView", WIDGET_ALIGN_LOW, WIDGET_ALIGN_CENTER, 40, 20, 4), anIndex)
 	if aTable.name then
-		setText(createWidget(panel, "Name"..tostring(anIndex), "TextView", WIDGET_ALIGN_LOW, WIDGET_ALIGN_CENTER, 250, 20, 70), aTable.name)
+		setText(createWidget(panel, "Name"..tostring(anIndex), "TextView", WIDGET_ALIGN_LOW, WIDGET_ALIGN_CENTER, 300, 20, 4), tostring(anIndex)..".  "..aTable.name)
 	end
-	local preview = createWidget(panel, "preview", "ImageBox", WIDGET_ALIGN_LOW, WIDGET_ALIGN_LOW, 30, 30, 35, 6)
+	local preview = createWidget(panel, "preview", "ImageBox", WIDGET_ALIGN_HIGH, WIDGET_ALIGN_LOW, 30, 30, 15, 6)
 	preview:SetBackgroundTexture(aTable.texture)
 	createWidget(panel, "scrollBtncontainerBuffs", "EmptyButton", WIDGET_ALIGN_BOTH, WIDGET_ALIGN_LOW, nil, 40, nil, nil)
 
