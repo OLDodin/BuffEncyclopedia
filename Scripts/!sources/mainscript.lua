@@ -1,7 +1,6 @@
 
 local m_reactions={}
 local m_configForm = nil
-local m_template = nil
 
 local m_searchAllTree = nil
 local m_currAllList = {}

@@ -1,5 +1,3 @@
-local m_template = getChild(mainForm, "Template")
-
 
 function GenerateWidgetForTable(aTable, aContainer, anIndex)
 	setTemplateWidget("common")
