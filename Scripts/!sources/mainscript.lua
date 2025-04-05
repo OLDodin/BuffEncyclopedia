@@ -123,7 +123,7 @@ function AddBuffToEncylopedia(aBuffInfo, aNeedSaveOnChanges)
 			myInfo = findedInfo
 			for _, buff in pairs(myInfo.buffs) do
 				if buff.buffId:IsEqual(aBuffInfo.buffId) then
-					local producerClasses = SetProducerClass(aBuffInfo.producer.casterId, buff.producerClasses)
+					local producerClasses = SetProducerClass(aBuffInfo.producer and aBuffInfo.producer.casterId, buff.producerClasses)
 					if buff.producerClasses ~= producerClasses then
 						buff.producerClasses = producerClasses
 						--LogInfo("modify myInfo.name = ", myInfo.name, "  producerClasses = ", producerClasses)
@@ -155,7 +155,7 @@ function AddBuffToEncylopedia(aBuffInfo, aNeedSaveOnChanges)
 			unicBuff.isStackable = aBuffInfo.isStackable
 			unicBuff.isGradual = aBuffInfo.isGradual
 			unicBuff.producerType = aBuffInfo.producerType or GetProducerType(aBuffInfo)
-			unicBuff.producerClasses =  SetProducerClass(aBuffInfo.producer.casterId, aBuffInfo.producerClasses or 0)
+			unicBuff.producerClasses =  SetProducerClass(aBuffInfo.producer and aBuffInfo.producer.casterId, aBuffInfo.producerClasses or 0)
 			unicBuff.description = aBuffInfo.description
 			unicBuff.texture = aBuffInfo.texture
 			unicBuff.buffId = aBuffInfo.buffId
@@ -182,6 +182,7 @@ function CheckAllUnits()
 			if next(buffs) then
 				local buffsInfo = object.GetBuffsInfo(buffs)
 				for _, buffInfo in pairs( buffsInfo or {} ) do
+					buffsInfo.description = GetDescription(buffInfo.buffId)
 					AddBuffToEncylopedia(buffInfo, true)
 				end
 			end
@@ -189,23 +190,30 @@ function CheckAllUnits()
 	end
 end
 
+function GetDescription(aBuffID)
+	local tooltipInfo = aBuffID and object.GetBuffTooltipInfo(aBuffID)
+	return tooltipInfo and tooltipInfo.description
+end
+
 function OnBuffAdded(aParams)
-	AddBuffToEncylopedia(object.GetBuffInfo(aParams.buffId), true)
+	local info = object.GetBuffInfo(aParams.buffId)
+	info.description = GetDescription(info.buffId)
+	AddBuffToEncylopedia(info, true)
 end
 
 function OnUnitChanged(aParams)
-	for i=0, GetTableSize(aParams.spawned)-1 do
-		if aParams.spawned[i] and not m_subscribedUnits[aParams.spawned[i]] then
+	for _, spawnedID in ipairs(aParams.spawned) do
+		if spawnedID and not m_subscribedUnits[spawnedID] then
 			local unitParams = {}
-			unitParams.objectId = aParams.spawned[i]
+			unitParams.objectId = spawnedID
 			m_subscribedUnits[unitParams.objectId] = unitParams
 			common.RegisterEventHandler(OnBuffAdded, 'EVENT_OBJECT_BUFF_ADDED', unitParams)
 		end
 	end
-	for i=0, GetTableSize(aParams.despawned)-1 do
-		if aParams.despawned[i] and m_subscribedUnits[aParams.despawned[i]] then
-			common.UnRegisterEventHandler(OnBuffAdded, 'EVENT_OBJECT_BUFF_ADDED', m_subscribedUnits[aParams.despawned[i]])
-			m_subscribedUnits[aParams.despawned[i]] = nil
+	for _, despawnedID in ipairs(aParams.despawned) do
+		if despawnedID and m_subscribedUnits[despawnedID] then
+			common.UnRegisterEventHandler(OnBuffAdded, 'EVENT_OBJECT_BUFF_ADDED', m_subscribedUnits[despawnedID])
+			m_subscribedUnits[despawnedID] = nil
 		end
 	end
 end
@@ -237,7 +245,7 @@ function OnEventSecondTimer()
 end
 
 function GetProducerType(aBuffInfo)
-	return isExist(aBuffInfo.producer.casterId) and unit.IsPlayer(aBuffInfo.producer.casterId) and PLAYER_PRODUCER
+	return aBuffInfo.producer and isExist(aBuffInfo.producer.casterId) and unit.IsPlayer(aBuffInfo.producer.casterId) and PLAYER_PRODUCER
 	or isExist(aBuffInfo.producer.casterId) and UNIT_PRODUCER
 	or aBuffInfo.producer.spellId and SPELL_PRODUCER
 	or aBuffInfo.producer.abilityId and ABILITY_PRODUCER
@@ -307,6 +315,8 @@ function LoadFormSettings()
 				if info.producerClasses == nil then
 					info.producerClasses = AddClassToPackedValue(0, "UNKNOWN")
 				end
+				
+				info.description = GetDescription(simpleInfo.buffId)
 				AddBuffToEncylopedia(info, false)
 			end
 		end
@@ -386,8 +396,7 @@ function OnSlashCommand(aParams)
 	end
 	if userMods.FromWString(aParams.text) == "/bereset2" or userMods.FromWString(aParams.text) == "\\bereset2" then
 		SaveDefaultSettings()
-		common.StateUnloadManagedAddon( "UserAddon/BuffEncyclopedia" )
-		common.StateLoadManagedAddon( "UserAddon/BuffEncyclopedia" )
+		common.StateReloadManagedAddon(common.GetAddonSysName())
 	end
 end
 

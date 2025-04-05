@@ -71,7 +71,12 @@ function SetBuffInfoFormSetting(aForm, aList, anIndex)
 	
 	local group1 = getChild(aForm, "group1")
 		
-	local wDesc = buffInfo.description:ToWString()
+	local wDesc
+	if apitype( buffInfo.description ) == "WString" then
+		wDesc = buffInfo.description
+	elseif apitype( buffInfo.description ) == "ValuedText" then
+		wDesc = buffInfo.description:ToWString()
+	end
 	setText(getChild(group1, "desc"), wDesc)
 
 	setText(getChild(group1, "value1"), locale[tostring(not buffInfo.isPositive)], buffInfo.isPositive and "ColorRed" or "ColorGreen", "center", 12)
