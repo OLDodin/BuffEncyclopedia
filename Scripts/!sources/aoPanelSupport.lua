@@ -22,13 +22,12 @@ function onAOPanelRightClick( params )
 	if params.sender == common.GetAddonName() then
 		local SetVal = { val = userMods.ToWString( "BE" )}
 		userMods.SendEvent( "AOPANEL_UPDATE_ADDON", { sysName = common.GetAddonName(), header = SetVal } )
-		ChangeSelectedAddons()
 	end
 	
 end
 
 function onAOPanelChange( params )
-	if params.unloading and string.find(params.name, "AOPanel") then
+	if params.state == ADDON_STATE_NOT_LOADED and string.find(params.name, "AOPanel") then
 		DnD.ShowWdg(getChild(mainForm, "BEButton"))
 	end
 end
