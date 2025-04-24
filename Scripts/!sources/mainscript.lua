@@ -107,7 +107,7 @@ function SetProducerClass(anObjID, aPackedValue)
 	end
 	return producerClasses
 end
-local g_groupsTypes = {}
+
 function AddBuffToEncylopedia(aBuffInfo, aNeedSaveOnChanges)
 	if aBuffInfo and aBuffInfo.name and not aBuffInfo.name:IsEmpty() then
 		local myInfo = {}
@@ -138,14 +138,7 @@ function AddBuffToEncylopedia(aBuffInfo, aNeedSaveOnChanges)
 		else
 			m_searchAllTree:add(myInfo)
 		end
-	--[[	
-		for _, groupName in pairs(aBuffInfo.groups) do
-			if not g_groupsTypes[groupName] then
-				g_groupsTypes[groupName] = true
-				LogInfo("found aBuffInfo = ", aBuffInfo.name, "  groupName = ", groupName)
-			end
-		end
-		]]
+
 		if not buffResourceAlreadyAdded then
 			local unicBuff = {}
 			unicBuff.isCleanable = IsCleanable(aBuffInfo)
@@ -256,15 +249,8 @@ end
 function IsControls(aBuffInfo)
 	local isControls = false
 			
-	for _, groupName in pairs(aBuffInfo.groups) do
-		if 	groupName == "controls" or 
-			groupName == "stuns" or
-			groupName == "Disarms" or
-			groupName == "fears"
-		then
-			isControls = true
-			break
-		end
+	if aBuffInfo.groups["controls"] or aBuffInfo.groups["stuns"] or aBuffInfo.groups["Disarms"] or aBuffInfo.groups["fears"] then
+		isControls = true
 	end
 	
 	return isControls
@@ -273,13 +259,8 @@ end
 function IsCleanable(aBuffInfo)
 	local isCleanable = false
 			
-	for _, groupName in pairs(aBuffInfo.groups) do
-		if 	groupName == "magics" or
-			groupName == "stackablemagics"
-		then
-			isCleanable = true
-			break
-		end
+	if aBuffInfo.groups["magics"] or aBuffInfo.groups["stackablemagics"] then
+		isCleanable = true
 	end
 	
 	return isCleanable
